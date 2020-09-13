@@ -1,0 +1,38 @@
+/* Top Nav Background Color */
+.navbar-inverse{
+  background-color: #43b9c6;
+  border-color: #43b9c6;
+}
+
+/* Top Nav Text Color */
+.navbar.navbar-inverse li a, .navbar.navbar-inverse .navbar-header a  {
+  color: white;
+}
+
+.alert-alert{
+  color: #a94442;
+  background-color: #f2dede;
+  border-color: #ebccd1;
+}
+
+.card:hover {
+  transform: scale(1.1);
+}
+
+.pkmn-gallery {
+  text-align: center;
+
+  img {
+    background-size: 95%;
+    margin: 10px 20px 10px 0;
+    width: 240px;
+    cursor: pointer;
+  }
+}
+
+.pagination{
+  display: inline-block;
+  padding-left: 0;
+  margin: 20px 0;
+  border-radius: 4px; 
+}

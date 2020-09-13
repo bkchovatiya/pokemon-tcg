@@ -1,0 +1,9 @@
+<%= render partial: 'pagination', locals:{ cards: cards} %>
+<div class="column pkmn-gallery">
+  <% cards.each do |card| %>
+    <%= render partial: 'card', locals:{ card: card} %>
+  <% end %>
+</div>
+<% if cards.any? %>
+<%= render partial: 'pagination', locals:{ cards: cards} %>
+<% end %>

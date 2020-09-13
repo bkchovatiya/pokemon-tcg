@@ -1,0 +1,72 @@
+
+<div class="row">
+  <div class="col-sm-4">
+    <div class="form-group">
+      <%= text_field_tag(:query, @query, placeholder: 'Search', class: "form-control", id: 'search') %>
+    </div>
+  </div>
+  <div class="col-sm-2">
+    <div class="form-group">
+      <button class="btn btn-primary form-control" type="submit" id="backup">Backup</button>
+    </div>
+  </div>
+  <div class="col-sm-2">
+    <div class="form-group">
+      <button class="btn btn-danger form-control" type="submit" id="delete_backup">Delete Backup</button>
+    </div>
+  </div>
+</div>
+
+<div id="cards">
+  <%= render partial: 'cards', locals:{ cards: @cards} %>
+</div>
+
+<script type="text/javascript">
+  $('#search').keyup(function() {
+    load_cards()
+  });
+
+  $( '#backup').click(function(){
+    swal("Good job!", "Backup job is in progress!", "success");
+    $.ajax({
+      url: '<%= create_backup_cards_path %>',
+      type: "POST",
+      async: true,
+      success: function () {
+        load_cards();
+        swal("Good job!", "Backup job has been completed!", "success");
+      }
+    });
+  });
+
+  $('#delete_backup').click(function(){
+    swal({
+      title: "Are you sure?",
+      text: "Once deleted, you will not be able to recover this backup file!",
+      type: "warning",
+      showCancelButton: true,
+      danger_mode: true,
+    })
+    .then(willDelete => {
+      console.log(willDelete)
+      if (willDelete) {
+        $.ajax({
+          url: '<%= delete_backup_cards_path %>',
+          type: "DELETE",
+          async: true,
+          success: function () {
+            load_cards();
+            swal("Good job!","Poof! Your backup file has been deleted!","success");
+          }
+        });
+      }
+    })
+  });
+
+  function load_cards(){
+    $.ajax({
+      url: '<%= root_path %>',
+      data : {query: $('#search').val()}
+    });
+  }
+</script>
