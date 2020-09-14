@@ -107,7 +107,9 @@ class Card
       return nil if !cards.is_a? Array or cards.blank?
       begin
         Card.collection.insert_many(cards, {ordered: false})
-      rescue Exception => e
+      rescue Mongo::Error::BulkWriteError => e
+        # This Exception is OK because
+        # we don't want to store dubplicate records.
         # Error Due to Duplicate Records
         Rails.logger.info "Backup was unable to save an error entry. Exception: #{e}"
       end

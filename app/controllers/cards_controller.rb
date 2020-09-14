@@ -1,6 +1,4 @@
 class CardsController < ApplicationController
-  before_action :set_card, only: [:show, :edit, :update]
-
   def index
     @cards = Card.seach_by_name_rarity_hp(params[:query]).paginate(page: params[:page], per_page: 40)
     respond_to do |format|
